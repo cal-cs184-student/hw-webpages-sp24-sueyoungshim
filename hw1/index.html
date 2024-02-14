@@ -1,7 +1,30 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Homework 1 index.html here
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS 184 Homework 1: Rasterizer</title>
+</head>
+<body>
+  <h2>Task 1: Rasterizing Triangles</h2>
+    <p>For rasterizing triangles, my approach was to first identify the bounding box surrounding the triangle. This was crucial because it allowed me to limit my focus to a smaller area of the screen, significantly reducing unnecessary computations. To determine whether a pixel falls inside the triangle, I incremented both x and y coordinates by 0.5 to ensure I was checking the pixel center. To handle triangles regardless of their winding order, I adapted the point-in-triangle test. I checked if the signs of areas formed by the triangle's vertices and the pixel were consistent (all positive or all negative), which indicated that the pixel lies within the triangle. Once the pixel passed the test, I filled it with the input color.</p>
+    <p>My algorithm's efficiency comes from directly targeting the triangle's bounding box, avoiding checks on pixels that couldn't possibly be inside the triangle. This direct approach is as efficient as any method that examines each sample within the bounding box, as it minimizes the number of calculations needed to determine which pixels need coloring.</p>
+  
+  <h2>Task 2: Supersampling for Antialiasing</h2>
+    <p>Supersampling is a technique for smoothing out the edges in my rendered images, essentially acting as an antialiasing method. By dividing each pixel into multiple sub-pixels (determined by the sampling rate), I was able to calculate a more nuanced color value that took into account the colors of these sub-pixels. This approach was particularly effective in reducing the jagged edges resulting in a much smoother appearance.</p>
+    <p>I integrated supersampling into my rasterization pipeline by adjusting the algorithm to account for these smaller sub-pixels within each pixel's area. Instead of immediately coloring a pixel after determining it falls within a triangle, I first sampled the sub-pixels inside the sample buffer and then averaged the values, and populated them into the frame buffer, which is what eventually gets rendered.</p>
+    <p>To demonstrate the effectiveness of supersampling, I rendered <code>basic/test4.svg</code> with varying sample rates. The comparisons clearly showed that as the sample rate increased, the edges of shapes became significantly smoother, showcasing the power of supersampling in enhancing image quality.</p>
+    <p>The accompanying photos demonstrate how varying sample rates impact the rendering quality of a triangle's slender edge. When the sample rate is set to 1, the edge of the triangle is noticeably jagged and exhibits clear disconnections, with the pixels displaying a uniform coloration. However, as we increase the sample rate, some pixels begin to have a lighter hue. This subtle shift in color is the result of averaging the color values of the sub-pixels within each pixel area. Essentially, this process blends white with the original color red, producing a spectrum of softer pink shades. Such a blending effect softens the previously broken edges, resulting in a smoother edge appearance. This enhanced rendering technique underscores the critical role of supersampling in refining the aesthetic quality of digital images, offering a striking contrast between low and high fidelity edge rendering.</p>
+  
+  <h2>Task 3: Revamping <code>robot.svg</code></h2>
+    <p>In this task, I decided to give the robot in a bit more personality by giving him a hat. 
+      Moreover, I adjusted the stance of its arms and legs to portray a more relaxed and natural 
+      posture, moving away from its original, more rigid positioning.</p>
+
+  <h2>Task 4: Understanding Barycentric Coordinates</h2>
+    
+  <h2>Task 5: Pixel Sampling Techniques</h2>
+    
+  <h2>Task 6: Level Sampling in Texture Mapping</h2>
+  </body>
 </html>
